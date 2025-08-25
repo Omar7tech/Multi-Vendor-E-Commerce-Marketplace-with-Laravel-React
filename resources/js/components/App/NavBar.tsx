@@ -22,16 +22,16 @@ export default function NavBar() {
   // Nav items depend on auth
   const navItems = user
     ? [
-        { title: 'Dashboard', href: '/dashboard' },
-        { title: 'Profile', href: '/settings/profile' },
-        { title: 'Settings', href: '/settings' },
-      ]
+
+      { title: 'Profile', href: '/settings/profile' },
+      { title: 'Settings', href: '/settings' },
+    ]
     : [
-        { title: 'Dashboard', href: '/dashboard' }, // public
-      ];
+      // public
+    ];
 
   return (
-<nav className="backdrop-blur-lg navbar  fixed top-0 left-0 right-0 z-50 bg-base-100/10 shadow-sm px-4 md:px-8">
+    <nav className="backdrop-blur-lg navbar  fixed top-0 left-0 right-0 z-50 bg-base-100/10 shadow-sm px-4 md:px-8">
       {/* Left - Logo and main nav */}
       <div className="flex-1 flex items-center gap-4">
         {/* Mobile toggle */}
@@ -95,9 +95,8 @@ export default function NavBar() {
               <span className="badge badge-sm indicator-item absolute -top-1 -right-1">8</span>
             </button>
             <div
-              className={`dropdown-content mt-3 w-52 shadow-lg bg-base-100 rounded-md ${
-                cartOpen ? 'block' : 'hidden'
-              }`}
+              className={`dropdown-content mt-3 w-52 shadow-lg bg-base-100 rounded-md ${cartOpen ? 'block' : 'hidden'
+                }`}
             >
               <div className="card card-compact bg-base-100 p-4">
                 <span className="text-lg font-semibold">8 Items</span>
@@ -124,9 +123,8 @@ export default function NavBar() {
               </div>
             </button>
             <ul
-              className={`menu menu-sm dropdown-content mt-3 w-52 p-2 shadow-lg rounded-md bg-base-100 ${
-                profileOpen ? 'block' : 'hidden'
-              }`}
+              className={`menu menu-sm dropdown-content mt-3 w-52 p-2 shadow-lg rounded-md bg-base-100 ${profileOpen ? 'block' : 'hidden'
+                }`}
             >
               <li className="px-2 py-1 font-semibold">{user.name}</li>
               <li>
