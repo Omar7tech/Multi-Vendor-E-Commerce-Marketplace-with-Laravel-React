@@ -2,13 +2,16 @@
 
 namespace App\Filament\Resources\Departments;
 
+use App\Enums\RolesEnum;
 use App\Filament\Resources\Departments\Pages\CreateDepartment;
 use App\Filament\Resources\Departments\Pages\EditDepartment;
 use App\Filament\Resources\Departments\Pages\ListDepartments;
+use App\Filament\Resources\Departments\RelationManagers\CategoriesRelationManager;
 use App\Filament\Resources\Departments\Schemas\DepartmentForm;
 use App\Filament\Resources\Departments\Tables\DepartmentsTable;
 use App\Models\Department;
 use BackedEnum;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -33,7 +36,7 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CategoriesRelationManager::class,
         ];
     }
 
@@ -44,5 +47,12 @@ class DepartmentResource extends Resource
             'create' => CreateDepartment::route('/create'),
             'edit' => EditDepartment::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        $user = Filament::auth()->user();
+
+        return $user && $user->hasRole(RolesEnum::ADMIN->value);
     }
 }

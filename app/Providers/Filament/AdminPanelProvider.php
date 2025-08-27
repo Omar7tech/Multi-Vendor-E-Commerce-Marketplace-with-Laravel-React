@@ -27,7 +27,8 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            
+            ->profile()
+            ->font('Poppins')
             ->id('admin')
             ->path('admin')
             ->colors([
@@ -37,12 +38,15 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
-            ])
+            ])->unsavedChangesAlerts()
+            ->broadcasting(false)
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
-            ])->spa(true)
+            ])->spa(true , true )
+            ->sidebarCollapsibleOnDesktop()
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

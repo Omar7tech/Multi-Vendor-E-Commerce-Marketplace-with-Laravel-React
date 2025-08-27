@@ -10,6 +10,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class DepartmentsTable
@@ -22,12 +23,16 @@ class DepartmentsTable
                     ->searchable()->sortable(),
                 TextColumn::make('slug')
                     ->searchable(),
+                TextColumn::make('categories_count')
+                    ->counts('categories')
+                    ->label('Categories')
+                    ->sortable(),
                 TextColumn::make('meta_title')
                     ->searchable(),
                 TextColumn::make('meta_description')
                     ->searchable(),
-                IconColumn::make('is_active')
-                    ->boolean()->sortable(),
+                ToggleColumn::make('is_active')
+                   ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
