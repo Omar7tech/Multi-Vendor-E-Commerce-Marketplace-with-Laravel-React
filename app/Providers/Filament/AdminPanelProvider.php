@@ -20,7 +20,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
+use Filament\Pages\Enums\SubNavigationPosition;
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Poppins')
             ->id('admin')
             ->path('admin')
+            ->subNavigationPosition(SubNavigationPosition::End)
             ->colors([
                 'primary' => Color::Amber,
             ])
