@@ -12,11 +12,11 @@ enum ProductStatusEnum: string implements HasLabel, HasDescription, HasColor , H
     case DRAFT = 'draft';
     case PUBLISHED = 'published';
 
-    public static function label(): string
+    public static function labels(): string
     {
         return [
             self::DRAFT->value => 'Draft',
-            self::PUBLISHED => 'Published',
+            self::PUBLISHED->value   => 'Published',
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use App\Enums\ProductStatusEnum;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Enums\PaginationMode;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -35,9 +36,18 @@ class ProductsTable
             $table->softDeletes('deleted_at', precision: 0);
             $table->timestamps(); */
         return $table
-        ->paginated([2, 25, 50, 100, 'all'])
-->deferLoading()
+            ->paginated([2, 25, 50, 100, 'all'])
+            ->deferLoading()
             ->columns([
+                SpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->disk('public')
+                    ->label('Images')
+                    ->conversion('thumb')
+                    ->stacked()
+                    ->limit(1)
+                    ->limitedRemainingText()
+                    ->rounded(),
                 TextColumn::make('title')
                     ->searchable()->sortable(),
                 TextColumn::make('category.name')
@@ -66,13 +76,13 @@ class ProductsTable
                 SelectFilter::make('status')
                     ->options(ProductStatusEnum::class)->native(false),
 
-                    
-                    SelectFilter::make('department_id')
+
+                SelectFilter::make('department_id')
                     ->label('Department')
                     ->searchable()
                     ->relationship('department', 'name')->native(false),
 
-                    SelectFilter::make('category_id')
+                SelectFilter::make('category_id')
                     ->label('Category')
                     ->searchable()
                     ->relationship('category', 'name')->native(false),

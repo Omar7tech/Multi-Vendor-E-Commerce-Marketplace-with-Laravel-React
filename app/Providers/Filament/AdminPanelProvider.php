@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            
             ->profile()
             ->font('Poppins')
             ->id('admin')

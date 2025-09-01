@@ -42,6 +42,11 @@ class Product extends Model implements \Spatie\MediaLibrary\HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function variationTypes()
+    {
+        return $this->hasMany(VariationType::class);
+    }
+
     protected static function booted(): void
     {
 
