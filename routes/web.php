@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('dashboard');
+Route::get('/',  [ProductController::class, 'index'])->name('dashboard');
+Route::get('/product/{product}',  [ProductController::class, 'show'])->name('product.show');
 
 
 

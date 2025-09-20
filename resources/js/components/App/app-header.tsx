@@ -47,7 +47,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
               <div className="drawer-side">
                 <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
                 <ul className="menu w-64 bg-base-100 p-4 space-y-2 border-r border-base-300 h-full">
-                  {/* Main navigation items */}
                   {mainNavItems.map((item) => (
                     <li key={item.title}>
                       <Link
@@ -66,7 +65,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
                   <div className="border-t border-base-300 mt-4 pt-4"></div>
 
-                  {/* External / Right-side items */}
                   {rightNavItems.map((item) => (
                     <li key={item.title}>
                       <a

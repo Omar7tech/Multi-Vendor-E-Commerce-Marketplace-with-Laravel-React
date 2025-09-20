@@ -75,7 +75,7 @@ class ProductVariationTypes extends EditRecord
                                     ->appendFiles()
                                     ->disk('public')
                                     ->image(),
-                            ])
+                            ])->columnSpan("full")
 
                     ])
             ]);

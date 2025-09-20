@@ -52,17 +52,18 @@ class ProductResource extends Resource
     }
 
     public static function getRecordSubNavigation(Page $page): array
-{
-    return $page->generateNavigationItems([
-        // ...
-        Pages\EditProduct::class,
-        Pages\ViewProduct::class,
-        Pages\ProductImages::class,
-        Pages\ProductVariationTypes::class,
+    {
+        return $page->generateNavigationItems([
+                // ...
+            Pages\EditProduct::class,
+            Pages\ViewProduct::class,
+            Pages\ProductImages::class,
+            Pages\ProductVariationTypes::class,
+            Pages\ProductVariations::class,
 
-        // ...
-    ]);
-}
+            // ...
+        ]);
+    }
 
     public static function getPages(): array
     {
@@ -73,6 +74,7 @@ class ProductResource extends Resource
             'edit' => EditProduct::route('/{record}/edit'),
             'images' => Pages\ProductImages::route('/{record}/images'),
             'variation-types' => Pages\ProductVariationTypes::route('/{record}/variation-types'),
+            'product-variations' => Pages\ProductVariations::route('/{record}/product-variations'),
         ];
     }
 
@@ -89,5 +91,10 @@ class ProductResource extends Resource
         $user = Filament::auth()->user();
 
         return $user && $user->hasRole(RolesEnum::VENDOR->value);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->forVendor();
     }
 }

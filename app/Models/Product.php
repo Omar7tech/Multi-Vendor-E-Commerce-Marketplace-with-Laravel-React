@@ -10,6 +10,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Enums\ProductStatusEnum;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 class Product extends Model implements \Spatie\MediaLibrary\HasMedia
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
@@ -22,10 +24,14 @@ class Product extends Model implements \Spatie\MediaLibrary\HasMedia
             ->saveSlugsTo('slug');
     }
 
+
+
     public function getRouteKeyName()
     {
         return 'slug';
     }
+
+    protected $guarded = [];
 
     public function category()
     {
@@ -39,7 +45,7 @@ class Product extends Model implements \Spatie\MediaLibrary\HasMedia
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function variationTypes()
@@ -47,13 +53,18 @@ class Product extends Model implements \Spatie\MediaLibrary\HasMedia
         return $this->hasMany(VariationType::class);
     }
 
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class, 'product_id');
+    }
+
     protected static function booted(): void
     {
 
         static::creating(function (Product $product) {
+
             $product->created_by = auth()->id();
             $product->updated_by = auth()->id();
-            return true;
         });
 
     }
@@ -77,7 +88,23 @@ class Product extends Model implements \Spatie\MediaLibrary\HasMedia
 
         $this->addMediaConversion('large')
             ->width(1200);
-
-
     }
+
+    #[Scope]
+    protected function published(Builder $query): void
+    {
+        $query->where('status', ProductStatusEnum::PUBLISHED->value);
+    }
+
+    #[Scope]
+    protected function draft(Builder $query): void
+    {
+        $query->where('status', ProductStatusEnum::DRAFT->value);
+    }
+    #[Scope]
+    protected function forVendor(Builder $query): void
+    {
+        $query->where('created_by', auth()->id());
+    }
+
 }

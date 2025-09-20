@@ -36,7 +36,7 @@ class ProductsTable
             $table->softDeletes('deleted_at', precision: 0);
             $table->timestamps(); */
         return $table
-            ->paginated([2, 25, 50, 100, 'all'])
+            ->paginated([10, 25, 50, 100, 'all'])
             ->deferLoading()
             ->columns([
                 SpatieMediaLibraryImageColumn::make('images')
