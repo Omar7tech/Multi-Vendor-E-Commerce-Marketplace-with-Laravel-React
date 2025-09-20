@@ -1,8 +1,3 @@
-
-function carousel() {
-  return (
-    <div>carousel</div>
-  )
+export default function Carousel() {
+    return <div>hey</div>;
 }
-
-export default carousel
