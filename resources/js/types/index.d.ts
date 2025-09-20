@@ -58,7 +58,10 @@ export interface Product {
         id: number;
         name: string;
     }
-
+    category: {
+        id: number;
+        name: string;
+    }
 }
 
 export interface PaginationProps<T> {
