@@ -1,4 +1,4 @@
-import Carousel from '@/components/Core/carousel';
+import Carousel from '@/components/Core/Carousel';
 import AppLayout from '@/layouts/app-layout';
 import { Product } from '@/types';
 import { Head } from '@inertiajs/react';
